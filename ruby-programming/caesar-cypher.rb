@@ -9,11 +9,11 @@
 def caesar_cypher(string, shift)
     new_string = ""
     string.split("").each do |x| 
-        if x.ord >= 65 && x.ord <= 90
+        if (65..90) === x.ord
             y = x.ord + shift
             y -= 26 while y > 90
             y += 26 while y < 65
-        elsif x.ord >= 97 && x.ord <= 122
+        elsif (97..122) === x.ord
             y = x.ord + shift
             y -= 26 while y > 122
             y += 26 while y < 97
