@@ -4,11 +4,8 @@ def bubble_sort(list)
 	while counter > 1 do
 		pre_sort = list.dup
 		for i in 0..counter-1
-				first = list[i]
-				second = list[i+1]
-				if first > second
-					list[i] = second
-					list[i+1] = first
+				if list[i] > list[i+1]
+					list[i], list[i+1] = list[i+1], list[i]
 				end
 				iterations += 1
 		end
