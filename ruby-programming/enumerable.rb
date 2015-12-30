@@ -25,10 +25,37 @@ module Enumerable
 	end
 
 	def my_all?
-
+		state = true
+		self.my_each do |item|
+			if (block_given? && !yield(item)) || (!block_given? && !item)
+				state = false
+				break
+			end
+		end
+		return state
 	end
 
 	def my_any?
+		state = false
+		self.my_each do |item|
+			if (block_given? && yield(item)) || (!block_given? && item)
+				state = true
+				break
+			end
+		end
+		return state
+	end
 
+	def my_none?
+		state = false
+			self.my_each do |item|
+				if (block_given? && !yield(item)) || (!block_given? && !item)
+					state = true
+				else
+					state = false
+					break
+				end
+			end
+		return state
 	end
 end
