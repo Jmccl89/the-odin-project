@@ -66,6 +66,49 @@ module Enumerable
 		end
 		return count
 	end
+
+	def my_map
+		return self.to_enum if !block_given?
+		result = []
+		self.my_each do |item|
+			result << yield(item)
+		end
+		return result
+	end
+
+	def my_map(&proc)
+		return self.to_enum if !block_given?
+		result = []
+		self.my_each do |item|
+			result << proc.call(item)
+		end
+		return result
+	end
+
+	def my_inject(initial=0, sym=nil)
+		result = initial.nil? ? nil : initial
+			if block_given?
+				for i in self
+					result = yield(result,i)
+				end
+			else
+				if sym.nil?
+					sym = initial
+					initial = nil
+				end
+				for i in self
+					if initial.nil?
+						initial = i
+						result = initial
+					else
+						result = result.send(sym, i)
+					end
+				end
+			end
+		return result
+	end
 end
 
-puts [1,2,3,4].my_count
+def multiply_els(elements)
+	return elements.my_inject(1) { |result, element| result * element }
+end
