@@ -58,4 +58,14 @@ module Enumerable
 			end
 		return state
 	end
+
+	def my_count
+		count = 0
+		self.my_each do
+			count += 1
+		end
+		return count
+	end
 end
+
+puts [1,2,3,4].my_count
