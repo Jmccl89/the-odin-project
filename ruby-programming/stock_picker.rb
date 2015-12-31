@@ -1,19 +1,16 @@
 def stock_picker(prices)
-    best_pair = []
-    best_diff = 0
-    last = prices.length - 1
-    for i in 0..last
-        for j in i + 1..last
-            new_diff = prices[j] - prices[i]
-            if new_diff > best_diff
-                best_diff = new_diff
-                best_pair = [i,j]
-            end
+  best_pair = []
+  best_diff = 0
+  prices.each_with_index do |i, i_index|
+    prices.each_with_index do |j, j_index|
+      if j_index > i_index
+        new_diff = j - i
+        if new_diff > best_diff
+          best_diff = new_diff
+          best_pair = [i_index, j_index]
         end
+      end
     end
-    puts "The best day to buy is day #{best_pair[0]} at $#{prices[best_pair[0]]}."
-    puts "The best day to sell is day #{best_pair[1]} at $#{prices[best_pair[1]]}."
-    puts "The profit per share will be $#{prices[best_pair[1]] - prices[best_pair[0]]}."
+  end
+  best_pair
 end
-
-stock_picker([17,3,6,14,13,5,2,6,18])
